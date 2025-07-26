@@ -1,0 +1,12 @@
+if (filteredUpdates.userName || filteredUpdates.email) {
+    const existingUser = await User.findOne({
+      $or: [
+        filteredUpdates.email ? { email: filteredUpdates.email } : null,
+        filteredUpdates.userName ? { userName: filteredUpdates.userName } : null,
+      ].filter(Boolean),
+    });
+
+    if (existingUser && existingUser._id.toString() !== userId.toString()) {
+      throw new ApiError(402, "Username or email already in use");
+    }
+  }
