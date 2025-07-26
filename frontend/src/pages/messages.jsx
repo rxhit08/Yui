@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
-import defaultAvatar from "../assets/avatar.png";
 import { IoSend } from "react-icons/io5";
 import { io } from "socket.io-client";
 
@@ -143,7 +142,7 @@ function Messages() {
             >
               <div className="flex items-center gap-3">
                 <img
-                  src={userItem.avatar || defaultAvatar}
+                  src={userItem.avatar || "https://res.cloudinary.com/dlqlufuqa/image/upload/v1753346146/qftluuxdavenstazerij.png"}
                   alt="avatar"
                   className="w-8 h-8 rounded-full object-cover"
                 />

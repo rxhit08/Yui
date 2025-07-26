@@ -56,7 +56,7 @@ function Login() {
   return (
     <div
       className="flex items-center justify-center h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/greenbg.png')" }}
+      style={{ backgroundImage: "url('https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537598/greenbg_oqfszw.png')" }}
     >
       <div className="w-[99.9%] max-w-8xl h-[99%] rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl flex">
         {/* Left Side */}

@@ -11,8 +11,6 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { IoReturnUpBack } from "react-icons/io5";
 import Likesmodal from "../components/likesmodal.jsx"
 import LikeButton from "../components/LikeButton.jsx"
-import graybg from 'D:/yui/frontend/graybg.png';
-import avatar from "../assets/avatar.png";
 import { likePost, showComments, showLikes, addCommentOrReply, deleteComment, likeComment, showCommentLikes, deleteReply, fetchReplies, hideReplies,likeReply, showReplyLikes } from "../utils/postActions.js";
 
 const getRelativeTime = (timestamp) => {
@@ -60,7 +58,7 @@ function Profile() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = currentUser?._id;
 
-  const defaultCoverImage = graybg;
+  const defaultCoverImage = "https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537422/graybg_hmnouz.png";
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -316,7 +314,7 @@ function Profile() {
 
         <div className="absolute -bottom-12 left-6">
           <img
-            src={user.avatar || avatar}
+            src={user.avatar || "https://res.cloudinary.com/dlqlufuqa/image/upload/v1753346146/qftluuxdavenstazerij.png"}
             alt="Avatar"
             className="w-24 h-24 rounded-full border-4 border-black object-cover"
           />
