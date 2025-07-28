@@ -92,7 +92,11 @@ function Register() {
         if (formData[key]) form.append(key, formData[key]);
       }
 
-      await axios.post(`${baseUrl}/api/v1/users/register`, form);
+      await axios.post(`${baseUrl}/api/v1/users/register`, form,
+        {
+          withCredentials: true
+        }
+      );
       setApiSuccess('Registration successful!');
       setFormData({
         name: '',
