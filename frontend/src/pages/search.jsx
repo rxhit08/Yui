@@ -11,6 +11,7 @@ function Search() {
   const [error, setError] = useState('');
   const lastSearchedQuery = useRef('');
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
   // Load recent viewed profiles from localStorage
   useEffect(() => {
@@ -39,7 +40,7 @@ function Search() {
     setError('');
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/search/searchuser?q=${searchQuery}`,
+        `${baseUrl}/api/v1/search/searchuser?q=${searchQuery}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

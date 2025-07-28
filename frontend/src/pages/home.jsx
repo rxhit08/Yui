@@ -45,13 +45,15 @@ function Home() {
   const commentInputRef = useRef(null);
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = currentUser?._id;
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
+  console.log(baseUrl)
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchFeed = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/v1/post/feed", {
+        const response = await axios.get(`${baseUrl}/api/v1/post/feed`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },

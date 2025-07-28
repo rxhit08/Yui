@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export const likePost = async ({
   postId,
@@ -10,7 +11,7 @@ export const likePost = async ({
 }) => {
   try {
     const res = await axios.patch(
-      `http://localhost:8000/api/v1/post/${postId}/addlike`,
+      `${baseUrl}/api/v1/post/${postId}/addlike`,
       {},
       {
         headers: {
@@ -58,7 +59,7 @@ export const showComments = async ({
 }) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/v1/post/${postId}`,
+      `${baseUrl}/api/v1/post/${postId}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -80,7 +81,7 @@ export const showLikes = async ({
 }) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/v1/post/${postId}/getlikes`,
+      `${baseUrl}/api/v1/post/${postId}/getlikes`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -114,7 +115,7 @@ export const addCommentOrReply = async ({
   if (replyingTo) {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/post/${selectedPost._id}/comment/${replyingTo}/addreplies`,
+        `${baseUrl}/api/v1/post/${selectedPost._id}/comment/${replyingTo}/addreplies`,
         { text: commentText },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -172,7 +173,7 @@ export const addCommentOrReply = async ({
   } else {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/post/${selectedPost._id}/comment`,
+        `${baseUrl}/api/v1/post/${selectedPost._id}/comment`,
         { text: commentText },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -212,7 +213,7 @@ export const deleteComment = async ({
 }) => {
   try {
     await axios.delete(
-      `http://localhost:8000/api/v1/post/${selectedPost._id}/comment/${commentId}`,
+      `${baseUrl}/api/v1/post/${selectedPost._id}/comment/${commentId}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -252,7 +253,7 @@ export const likeComment = async ({
 }) => {
   try {
     const res = await axios.patch(
-      `http://localhost:8000/api/v1/post/${selectedPost._id}/comment/${commentId}/like`,
+      `${baseUrl}/api/v1/post/${selectedPost._id}/comment/${commentId}/like`,
       {},
       {
         headers: {
@@ -298,7 +299,7 @@ export const showCommentLikes = async ({
 }) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/getlikes`,
+      `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/getlikes`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -323,7 +324,7 @@ export const deleteReply = async ({
 }) => {
   try {
     const res = await axios.delete(
-      `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}`,
+      `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -335,7 +336,7 @@ export const deleteReply = async ({
       toast.success("Reply deleted");
 
       const fetchRes = await axios.get(
-        `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/getreplies?page=1&limit=3`,
+        `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/getreplies?page=1&limit=3`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -378,7 +379,7 @@ export const fetchReplies = async ({
 
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/getreplies?page=${data.page}&limit=3`,
+      `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/getreplies?page=${data.page}&limit=3`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -426,7 +427,7 @@ export const likeReply = async ({
 }) => {
   try {
     const res = await axios.patch(
-      `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}/like`,
+      `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}/like`,
       {},
       {
         headers: {
@@ -475,7 +476,7 @@ export const showReplyLikes = async ({
 }) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}/getlikes`,
+      `${baseUrl}/api/v1/post/${postId}/comment/${commentId}/replies/${replyId}/getlikes`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

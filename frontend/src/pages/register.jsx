@@ -20,6 +20,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [apiSuccess, setApiSuccess] = useState('');
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
   const fetchDefaultImageBlob = async () => {
     const response = await fetch(avatar);
@@ -93,7 +94,7 @@ function Register() {
 
       console.log(formData)
 
-      await axios.post('http://localhost:8000/api/v1/users/register', form);
+      await axios.post(`${baseUrl}/api/v1/users/register`, form);
       setApiSuccess('Registration successful!');
       setFormData({
         name: '',

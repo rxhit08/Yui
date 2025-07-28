@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/",
   withCredentials: true,
 });
 
@@ -22,12 +22,13 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/v1/users/refresh-token", // ✅ Updated route here
+          `${baseUrl}/api/v1/users/refresh-token`, // ✅ Updated route here
           {},
           { withCredentials: true }
         );

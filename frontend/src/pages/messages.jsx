@@ -15,9 +15,11 @@ function Messages() {
   const [socket, setSocket] = useState(null);
   const lastMessageRef = useRef(null);
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  const defaultAvatar = "https://res.cloudinary.com/dlqlufuqa/image/upload/v1753346146/qftluuxdavenstazerij.png"
   
   useEffect(() => {
-    const newSocket = io("http://localhost:8000", { withCredentials: true });
+    const newSocket = io(`${baseUrl}`, { withCredentials: true });
     setSocket(newSocket);
     return () => newSocket.disconnect();
   }, []);
@@ -48,7 +50,7 @@ function Messages() {
     const fetchLastMessagedUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/message/showlastmessage",
+          `${baseUrl}/api/v1/message/showlastmessage`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -70,7 +72,7 @@ function Messages() {
       setLoadingMessages(true);
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/message/showmessage/${selectedUser.userName}`,
+          `${baseUrl}/api/v1/message/showmessage/${selectedUser.userName}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -100,7 +102,7 @@ function Messages() {
 
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/message/sendmessage/${selectedUser.userName}`,
+        `${baseUrl}/api/v1/message/sendmessage/${selectedUser.userName}`,
         { text: newMessage },
         {
           headers: {

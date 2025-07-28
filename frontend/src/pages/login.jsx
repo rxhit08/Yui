@@ -13,6 +13,7 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -26,7 +27,7 @@ function Login() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/users/login', {
+      const response = await axios.post(`${baseUrl}/api/v1/users/login`, {
         email,
         password,
       });

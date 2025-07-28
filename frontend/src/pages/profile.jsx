@@ -54,6 +54,7 @@ function Profile() {
   const [showReplyLikesModal, setShowReplyLikesModal] = useState(false);
   const [replyLikesList, setReplyLikesList] = useState([]);
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
   const commentInputRef = useRef(null);
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = currentUser?._id;
@@ -65,19 +66,21 @@ function Profile() {
       try {
         if (!loggedInUser) return;
         setLoading(true);
+        console.log(baseUrl)
 
         const profileRes = await axios.get(
-          `http://localhost:8000/api/v1/profile/user/${userName}`,
+          `${baseUrl}/api/v1/profile/user/${userName}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
+        console.log(profileRes.data.data)
         setUser(profileRes.data.data);
 
         const statsRes = await axios.get(
-          `http://localhost:8000/api/v1/follow-stats/userName/${userName}`,
+          `${baseUrl}/api/v1/follow-stats/userName/${userName}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -87,7 +90,7 @@ function Profile() {
         setFollowStats(statsRes.data.data);
 
         const postsRes = await axios.get(
-          `http://localhost:8000/api/v1/profile/user/${userName}/profileposts`,
+          `${baseUrl}/api/v1/profile/user/${userName}/profileposts`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -98,7 +101,7 @@ function Profile() {
 
         if (loggedInUser.userName !== userName) {
           const followStatusRes = await axios.get(
-            `http://localhost:8000/api/v1/isfollowing/${userName}`,
+            `${baseUrl}/api/v1/isfollowing/${userName}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

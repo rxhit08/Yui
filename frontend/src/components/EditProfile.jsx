@@ -22,6 +22,7 @@ function EditProfile() {
   const [avatarFile, setAvatarFile] = useState(null);
   const [coverFile, setCoverFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
   const avatarInputRef = useRef();
   const coverInputRef = useRef();
@@ -56,7 +57,7 @@ function EditProfile() {
       if (coverFile) form.append("coverImage", coverFile);
 
       const res = await axios.patch(
-        "http://localhost:8000/api/v1/users/update-details",
+        `${baseUrl}/api/v1/users/update-details`,
         form,
         {
           headers: {
