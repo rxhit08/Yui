@@ -92,8 +92,6 @@ function Register() {
         if (formData[key]) form.append(key, formData[key]);
       }
 
-      console.log(formData)
-
       await axios.post(`${baseUrl}/api/v1/users/register`, form);
       setApiSuccess('Registration successful!');
       setFormData({

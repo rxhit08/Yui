@@ -46,7 +46,6 @@ function Home() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = currentUser?._id;
   const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-
   console.log(baseUrl)
   const navigate = useNavigate()
 
