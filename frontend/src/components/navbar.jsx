@@ -95,7 +95,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="h-full border-r border-gray-800 text-white flex flex-col items-end py-20 pr-10 space-y-8">
+      <div className="h-full text-white flex flex-col items-center lg:items-end py-10 px-2 md:px-4 lg:pr-10 space-y-8">
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isLogout = item.action;
@@ -113,7 +113,7 @@ function Navbar() {
             : "bg-blue-400";
 
           const TextAndUnderline = (
-            <div className="flex flex-col items-end">
+            <div className="hidden lg:flex flex-col items-end">
               <span className={`text-xl transition-colors duration-300 ${textColor}`}>
                 {item.name}
               </span>
@@ -125,53 +125,69 @@ function Navbar() {
             </div>
           );
 
-          if (isLogout) {
-            return (
+          const Base = ({ children, onClick, to }) =>
+            to ? (
+              <Link
+                to={to}
+                key={index}
+                className="group flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-1 lg:gap-2"
+              >
+                {children}
+              </Link>
+            ) : (
               <button
                 key={index}
-                onClick={handleLogout}
-                className="group flex flex-row-reverse items-center justify-end space-x-2 space-x-reverse cursor-pointer focus:outline-none"
+                onClick={onClick}
+                className="group flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-1 lg:gap-2 focus:outline-none"
               >
-                {TextAndUnderline}
-                <Icon className="h-5 w-5 ml-2 transition-colors duration-200 group-hover:text-red-400" />
+                {children}
               </button>
+            );
+
+          const iconElement = (
+            <Icon
+              className={`h-6 w-6 transition-colors duration-200 ${
+                isActive
+                  ? "text-blue-400"
+                  : isLogout || isModal
+                  ? "group-hover:text-red-400"
+                  : "group-hover:text-blue-400"
+              }`}
+            />
+          );
+
+          if (isLogout) {
+            return (
+              <Base key={index} onClick={handleLogout}>
+                {TextAndUnderline}
+                {iconElement}
+              </Base>
             );
           }
 
           if (isModal) {
             return (
-              <button
-                key={index}
-                onClick={() => setIsModalOpen(true)}
-                className="group flex flex-row-reverse items-center justify-end space-x-2 space-x-reverse cursor-pointer focus:outline-none"
-              >
+              <Base key={index} onClick={() => setIsModalOpen(true)}>
                 {TextAndUnderline}
-                <Icon className="h-5 w-5 ml-2 transition-colors duration-200 group-hover:text-red-400" />
-              </button>
+                {iconElement}
+              </Base>
             );
           }
 
           return (
-            <Link
-              to={item.path}
-              key={index}
-              className="group flex flex-row-reverse items-center justify-end space-x-2 space-x-reverse cursor-pointer"
-            >
+            <Base key={index} to={item.path}>
               {TextAndUnderline}
-              <Icon
-                className={`h-5 w-5 ml-2 transition-colors duration-200 ${
-                  isActive ? "text-blue-400" : "group-hover:text-blue-400"
-                }`}
-              />
-            </Link>
+              {iconElement}
+            </Base>
           );
         })}
 
-        <div className="mt-auto flex flex-row-reverse items-center justify-end gap-3">
+        {/* User Info */}
+        <div className="mt-auto hidden lg:flex flex-row-reverse items-center justify-end gap-3 pr-2">
           <img
             src={user?.avatar || avatar}
             alt="User avatar"
-            className="w-12 h-12 rounded-full border-2 border-white object-cover"
+            className="w-10 h-10 rounded-full border-2 border-white object-cover"
           />
           <div className="flex flex-col items-end">
             <span className="text-sm text-gray-300">@{user?.userName || "username"}</span>
@@ -184,18 +200,14 @@ function Navbar() {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-zinc-900 text-white w-full max-w-md rounded-xl p-5 shadow-xl relative">
             {error && (
-              <div className="text-red-500 text-sm mb-3 text-center">
-                {error}
-              </div>
+              <div className="text-red-500 text-sm mb-3 text-center">{error}</div>
             )}
-
             <textarea
               placeholder="What's on your mind?"
               value={postText}
               onChange={(e) => setPostText(e.target.value)}
               className="w-full h-24 p-3 bg-zinc-800 border border-white/10 rounded-md text-white placeholder-gray-400 resize-none focus:outline-none mb-3"
             />
-
             {imagePreview && (
               <div className="relative mb-3">
                 <img
@@ -214,7 +226,6 @@ function Navbar() {
                 </button>
               </div>
             )}
-
             <div className="flex justify-between items-center">
               <label className="cursor-pointer text-red-400">
                 <input
@@ -225,7 +236,6 @@ function Navbar() {
                 />
                 <ImageIcon size={20} />
               </label>
-
               <div className="flex gap-2">
                 <button
                   onClick={closeModal}
@@ -249,3 +259,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
