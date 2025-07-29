@@ -56,29 +56,35 @@ function Login() {
 
   return (
     <div
-      className="flex items-center justify-center h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537598/greenbg_oqfszw.png')" }}
+      className="flex items-center justify-center min-h-screen bg-cover bg-center px-4 py-8"
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537598/greenbg_oqfszw.png')",
+      }}
     >
-      <div className="w-[99.9%] max-w-8xl h-[99%] rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl flex">
-        {/* Left Side */}
-        <div className="w-1/2 flex flex-col justify-center items-end pr-16">
-          <div className="text-right">
-            <h1 className="text-6xl font-bold text-red-500 mb-4">Log in to YUI</h1>
-            <p className="text-2xl text-white">
-              Your people, your posts — all waiting for you.
-            </p>
-          </div>
+      <div className="w-full max-w-6xl rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl flex flex-col md:flex-row h-full md:h-[90vh] overflow-hidden">
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-end p-6 md:pr-16 md:pl-0 text-center md:text-right">
+          <h1 className="text-4xl md:text-6xl font-bold text-red-500 mb-2 md:mb-4">Log in to YUI</h1>
+          <p className="text-lg md:text-2xl text-white mb-6 md:mb-0">
+            Your people, your posts — all waiting for you.
+          </p>
         </div>
 
-        {/* Right Side (Login Form) */}
-        <div className="w-1/2 flex justify-start items-center pl-16">
+        <div className="w-full md:w-1/2 flex justify-center items-center p-6 md:pl-16">
           <form onSubmit={handleSubmit} className="w-full max-w-sm">
-            <h2 className="text-4xl font-semibold mb-6 text-center text-white">LOGIN</h2>
+            <h2 className="text-3xl md:text-4xl font-semibold mb-6 text-center text-white">LOGIN</h2>
 
-            {error && <div className="mb-4 text-red-400 text-sm text-center">{error}</div>}
+            {error && (
+              <div className="mb-4 text-red-400 text-sm text-center">{error}</div>
+            )}
 
             <div className="mb-4">
-              <label className="block font-bold text-white mb-2" htmlFor="email">Email</label>
+              <label
+                className="block font-bold text-white mb-2"
+                htmlFor="email"
+              >
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -91,9 +97,14 @@ function Login() {
             </div>
 
             <div className="mb-2 relative">
-              <label className="block font-bold text-white mb-2" htmlFor="password">Password</label>
+              <label
+                className="block font-bold text-white mb-2"
+                htmlFor="password"
+              >
+                Password
+              </label>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -125,8 +136,11 @@ function Login() {
             </button>
 
             <p className="text-sm text-white mt-6 text-center">
-              Don’t have an Account?{' '}
-              <Link to="/register" className="text-red-400 hover:underline font-medium">
+              Don’t have an Account?{" "}
+              <Link
+                to="/register"
+                className="text-red-400 hover:underline font-medium"
+              >
                 Register Here
               </Link>
             </p>
@@ -135,6 +149,8 @@ function Login() {
       </div>
     </div>
   );
+
+
 }
 
 export default Login;

@@ -140,147 +140,188 @@ function Register() {
   );
 
   return (
-    <div
-      className="flex items-center justify-center h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537598/greenbg_oqfszw.png')" }}
-    >
-      <div className="w-[99.9%] max-w-8xl h-[99%] rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl flex">
-        <div className="w-1/2 flex flex-col justify-center items-end pr-8 pl-8">
-          <div className="text-right max-w-[85%]">
-            <h1 className="text-4xl font-bold text-red-500 mb-3">Start your journey with YUI</h1>
-            <p className="text-xl text-white leading-snug">
-              Sign up and explore a new kind of social space.
-            </p>
-          </div>
-        </div>
-
-        <div className="w-1/2 flex justify-start items-center pl-8 pr-8">
-          <form onSubmit={handleSubmit} className="w-full max-w-3xl text-white">
-            <div className="flex justify-center mb-6">
-              <h2 className="text-4xl font-semibold text-white">REGISTER</h2>
-            </div>
-
-            {apiError && <p className="text-red-400 mb-4 text-center">{apiError}</p>}
-            {apiSuccess && <p className="text-green-400 mb-4 text-center">{apiSuccess}</p>}
-
-            <div className="flex gap-6">
-              <div className="w-1/2">
-                {renderInput({ label: 'Name', name: 'name', type: 'text' })}
-                {renderInput({ label: 'Email', name: 'email', type: 'email' })}
-                {renderInput({ label: 'Date of Birth', name: 'dateOfBirth', type: 'date' })}
-
-                <div className={inputWrapper}>
-                  <label className="block mb-1 text-sm">Avatar</label>
-                  <div className="flex items-center gap-4">
-                    <label className="px-4 py-2 bg-gray-700 text-white rounded cursor-pointer hover:bg-gray-600 text-sm">
-                      Choose Avatar
-                      <input
-                        type="file"
-                        name="avatar"
-                        onChange={handleChange}
-                        onBlur={() => handleBlur('avatar')}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                  {preview.avatar && (
-                    <div className="mt-2 flex items-center gap-2">
-                      <img
-                        src={preview.avatar}
-                        alt="Avatar Preview"
-                        className="h-12 w-12 rounded object-cover border"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeImage('avatar')}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="w-1/2">
-                {renderInput({ label: 'Username', name: 'userName', type: 'text' })}
-                {renderInput({ label: 'Password', name: 'password', type: 'password' })}
-
-                <div className={inputWrapper}>
-                  <label className="block mb-1 text-sm">Cover Image (optional)</label>
-                  <div className="flex items-center gap-4">
-                    <label className="px-4 py-2 bg-gray-700 text-white rounded cursor-pointer hover:bg-gray-600 text-sm">
-                      Choose Cover
-                      <input
-                        type="file"
-                        name="coverImage"
-                        onChange={handleChange}
-                        onBlur={() => handleBlur('coverImage')}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                  {preview.coverImage && (
-                    <div className="mt-2 flex items-center gap-2">
-                      <img
-                        src={preview.coverImage}
-                        alt="Cover Preview"
-                        className="h-12 w-12 rounded object-cover border"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeImage('coverImage')}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                <div className={inputWrapper}>
-                  <label className="block mb-1 text-sm">Gender</label>
-                  <div className="flex gap-4">
-                    {['male', 'female', 'other'].map((g) => (
-                      <label key={g} className="flex items-center gap-2 text-sm capitalize">
-                        <input
-                          type="radio"
-                          name="gender"
-                          value={g}
-                          checked={formData.gender === g}
-                          onChange={handleChange}
-                          onBlur={() => handleBlur('gender')}
-                          className="accent-red-500"
-                        />
-                        {g}
-                      </label>
-                    ))}
-                    {errors.gender && <span className="text-xs text-red-400">{errors.gender}</span>}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-center mt-4">
-              <button
-                type="submit"
-                className="w-1/2 max-w-xs bg-red-500 text-white py-2 px-6 rounded hover:bg-red-600 transition"
-              >
-                Register
-              </button>
-            </div>
-
-            <p className="mt-4 text-center text-sm">
-              Already have an account?{' '}
-              <Link to="/login" className="text-red-400 hover:underline font-medium">
-                Login Here
-              </Link>
-            </p>
-          </form>
+  <div
+    className="flex items-center justify-center min-h-screen bg-cover bg-center px-4 py-6"
+    style={{
+      backgroundImage:
+        "url('https://res.cloudinary.com/dlqlufuqa/image/upload/v1753537598/greenbg_oqfszw.png')",
+    }}
+  >
+    <div className="w-full max-w-7xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-xl flex flex-col md:flex-row overflow-hidden">
+      
+      {/* Left Section: Intro Text */}
+      <div className="w-full md:w-1/2 flex justify-center items-center p-6 md:p-10">
+        <div className="text-center md:text-right max-w-md">
+          <h1 className="text-3xl md:text-4xl font-bold text-red-500 mb-3">
+            Start your journey with YUI
+          </h1>
+          <p className="text-base md:text-xl text-white leading-snug">
+            Sign up and explore a new kind of social space.
+          </p>
         </div>
       </div>
+
+      {/* Right Section: Form */}
+      <div className="w-full md:w-1/2 flex justify-center items-center p-6 md:p-10">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-2xl text-white"
+        >
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-semibold">REGISTER</h2>
+          </div>
+
+          {apiError && <p className="text-red-400 mb-4 text-center">{apiError}</p>}
+          {apiSuccess && <p className="text-green-400 mb-4 text-center">{apiSuccess}</p>}
+
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Left Inputs */}
+            <div className="w-full md:w-1/2">
+              {renderInput({ label: "Name", name: "name", type: "text" })}
+              {renderInput({ label: "Email", name: "email", type: "email" })}
+              {renderInput({
+                label: "Date of Birth",
+                name: "dateOfBirth",
+                type: "date",
+              })}
+
+              {/* Avatar Upload */}
+              <div className={inputWrapper}>
+                <label className="block mb-1 text-sm">Avatar</label>
+                <div className="flex items-center gap-4">
+                  <label className="px-4 py-2 bg-gray-700 text-white rounded cursor-pointer hover:bg-gray-600 text-sm">
+                    Choose Avatar
+                    <input
+                      type="file"
+                      name="avatar"
+                      onChange={handleChange}
+                      onBlur={() => handleBlur("avatar")}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                {preview.avatar && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <img
+                      src={preview.avatar}
+                      alt="Avatar Preview"
+                      className="h-12 w-12 rounded object-cover border"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage("avatar")}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Inputs */}
+            <div className="w-full md:w-1/2">
+              {renderInput({
+                label: "Username",
+                name: "userName",
+                type: "text",
+              })}
+              {renderInput({
+                label: "Password",
+                name: "password",
+                type: "password",
+              })}
+
+              {/* Cover Image Upload */}
+              <div className={inputWrapper}>
+                <label className="block mb-1 text-sm">
+                  Cover Image (optional)
+                </label>
+                <div className="flex items-center gap-4">
+                  <label className="px-4 py-2 bg-gray-700 text-white rounded cursor-pointer hover:bg-gray-600 text-sm">
+                    Choose Cover
+                    <input
+                      type="file"
+                      name="coverImage"
+                      onChange={handleChange}
+                      onBlur={() => handleBlur("coverImage")}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                {preview.coverImage && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <img
+                      src={preview.coverImage}
+                      alt="Cover Preview"
+                      className="h-12 w-12 rounded object-cover border"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage("coverImage")}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Gender */}
+              <div className={inputWrapper}>
+                <label className="block mb-1 text-sm">Gender</label>
+                <div className="flex flex-wrap gap-4">
+                  {["male", "female", "other"].map((g) => (
+                    <label
+                      key={g}
+                      className="flex items-center gap-2 text-sm capitalize"
+                    >
+                      <input
+                        type="radio"
+                        name="gender"
+                        value={g}
+                        checked={formData.gender === g}
+                        onChange={handleChange}
+                        onBlur={() => handleBlur("gender")}
+                        className="accent-red-500"
+                      />
+                      {g}
+                    </label>
+                  ))}
+                  {errors.gender && (
+                    <span className="text-xs text-red-400">{errors.gender}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-center mt-6">
+            <button
+              type="submit"
+              className="w-full max-w-xs bg-red-500 text-white py-2 px-6 rounded hover:bg-red-600 transition"
+            >
+              Register
+            </button>
+          </div>
+
+          <p className="mt-4 text-center text-sm">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-red-400 hover:underline font-medium"
+            >
+              Login Here
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
-  );
+  </div>
+);
+
+
 }
 
 export default Register;
